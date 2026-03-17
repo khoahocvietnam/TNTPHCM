@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch sử Đội TNTP Hồ Chí Minh</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6DD5ED, #2193B0);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 30px;
+            background: white;
+            color: #2193B0;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #6DD5ED, #2193B0);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            width: 100%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            padding-right: calc(50% + 30px);
+        }
+
+        .timeline-item:nth-child(even) {
+            padding-left: calc(50% + 30px);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #2193B0;
+            border: 4px solid white;
+            box-shadow: 0 0 0 2px #2193B0;
+            z-index: 2;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: 20px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 20px;
+        }
+
+        .timeline-content h3 {
+            color: #2193B0;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .timeline-content h4 {
+            color: #333;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .timeline-content p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .timeline-content img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .hero-section {
+            margin-top: 60px;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .hero-section h2 {
+            text-align: center;
+            color: #2193B0;
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .hero-card {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .hero-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 4px solid #2193B0;
+            object-fit: cover;
+        }
+
+        .hero-card h3 {
+            color: #2193B0;
+            margin-bottom: 5px;
+        }
+
+        .hero-card .title {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .hero-card p {
+            color: #555;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background: #2c3e50;
+            color: white;
+            border-radius: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                padding: 0 0 0 50px;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                margin: 0;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>LỊCH SỬ ĐỘI TNTP HỒ CHÍ MINH</h1>
+            <p>80 năm xây dựng và trưởng thành (1941 - 2025)</p>
+            <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Về trang chủ</a>
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>15/05/1941</h3>
+                    <h4>Thành lập Đội Nhi đồng Cứu quốc</h4>
+                    <p>Đội được thành lập tại thôn Nà Mạ, xã Trường Hà, huyện Hà Quảng, tỉnh Cao Bằng. Gồm 5 đội viên đầu tiên: Kim Đồng, Cao Sơn, Thanh Minh, Thủy Tiên, Thanh Thủy.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>15/02/1943</h3>
+                    <h4>Anh hùng Kim Đồng hy sinh</h4>
+                    <p>Người đội trưởng đầu tiên của Đội đã anh dũng hy sinh khi làm nhiệm vụ bảo vệ cán bộ cách mạng, trở thành tấm gương sáng cho các thế hệ thiếu nhi.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>1945</h3>
+                    <h4>Cách mạng Tháng Tám thành công</h4>
+                    <p>Đội tham gia bảo vệ chính quyền cách mạng, làm nhiệm vụ liên lạc, canh gác. Nhiều đội viên trở thành chiến sĩ trong các đội vũ trang.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>1951</h3>
+                    <h4>Đổi tên thành Đội Thiếu nhi Tháng Tám</h4>
+                    <p>Sau Cách mạng Tháng Tám, Đội được đổi tên thành Đội Thiếu nhi Tháng Tám, hoạt động mạnh mẽ trong thời kỳ kháng chiến chống Pháp.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>1956</h3>
+                    <h4>Đổi tên thành Đội Thiếu niên Tiền phong</h4>
+                    <p>Đội được mang tên Đội Thiếu niên Tiền phong, thể hiện vai trò tiên phong của thiếu niên trong công cuộc xây dựng và bảo vệ Tổ quốc.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>30/01/1970</h3>
+                    <h4>Đội được mang tên Bác Hồ</h4>
+                    <p>Đội được vinh dự mang tên Đội Thiếu niên Tiền phong Hồ Chí Minh, ghi nhận công lao to lớn của Bác Hồ đối với thế hệ trẻ Việt Nam.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>1976</h3>
+                    <h4>Phong trào "Nghìn việc tốt"</h4>
+                    <p>Phong trào được phát động, tạo nên làn sóng thi đua sôi nổi trong thiếu nhi cả nước, giáo dục đạo đức, lối sống tốt đẹp.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>1986</h3>
+                    <h4>Phong trào "Kế hoạch nhỏ"</h4>
+                    <p>Phong trào khuyến khích thiếu nhi tiết kiệm, giúp đỡ bạn nghèo và xây dựng công trình măng non.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>2001</h3>
+                    <h4>"Vòng tay bè bạn"</h4>
+                    <p>Cuộc vận động giúp đỡ thiếu nhi có hoàn cảnh khó khăn, thể hiện tinh thần tương thân tương ái.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>2011</h3>
+                    <h4>70 năm thành lập Đội</h4>
+                    <p>Kỷ niệm 70 năm ngày thành lập Đội với nhiều hoạt động ý nghĩa, tôn vinh truyền thống vẻ vang.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>2021</h3>
+                    <h4>80 năm thành lập Đội</h4>
+                    <p>Kỷ niệm 80 năm ngày thành lập Đội TNTP Hồ Chí Minh, đánh dấu chặng đường 80 năm xây dựng và trưởng thành.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-section">
+            <h2>ANH HÙNG ĐỘI VIÊN TIÊU BIỂU</h2>
+            <div class="hero-grid">
+                <div class="hero-card">
+                    <img src="https://via.placeholder.com/150/2193B0/ffffff?text=Kim+Đồng" alt="Kim Đồng">
+                    <h3>Kim Đồng</h3>
+                    <p class="title">Nông Văn Dền (1929-1943)</p>
+                    <p>Đội trưởng đầu tiên, hy sinh khi làm nhiệm vụ liên lạc</p>
+                </div>
+
+                <div class="hero-card">
+                    <img src="https://via.placeholder.com/150/2193B0/ffffff?text=Lê+Văn+Tám" alt="Lê Văn Tám">
+                    <h3>Lê Văn Tám</h3>
+                    <p class="title">(1942-1945)</p>
+                    <p>Tự thiêu làm kho xăng giặc Pháp nổ tung</p>
+                </div>
+
+                <div class="hero-card">
+                    <img src="https://via.placeholder.com/150/2193B0/ffffff?text=Võ+Thị+Sáu" alt="Võ Thị Sáu">
+                    <h3>Võ Thị Sáu</h3>
+                    <p class="title">(1933-1952)</p>
+                    <p>Nữ anh hùng liệt sĩ trong kháng chiến chống Pháp</p>
+                </div>
+
+                <div class="hero-card">
+                    <img src="https://via.placeholder.com/150/2193B0/ffffff?text=Nguyễn+Bá+Ngọc" alt="Nguyễn Bá Ngọc">
+                    <h3>Nguyễn Bá Ngọc</h3>
+                    <p class="title">(1953-1965)</p>
+                    <p>Hy sinh cứu các bạn nhỏ trong chiến tranh phá hoại</p>
+                </div>
+
+                <div class="hero-card">
+                    <img src="https://via.placeholder.com/150/2193B0/ffffff?text=Lý+Tự+Trọng" alt="Lý Tự Trọng">
+                    <h3>Lý Tự Trọng</h3>
+                    <p class="title">(1914-1931)</p>
+                    <p>Con đường của thanh niên chỉ là con đường cách mạng</p>
+                </div>
+
+                <div class="hero-card">
+                    <img src="https://via.placeholder.com/150/2193B0/ffffff?text=Nguyễn+Văn+Trỗi" alt="Nguyễn Văn Trỗi">
+                    <h3>Nguyễn Văn Trỗi</h3>
+                    <p class="title">(1940-1964)</p>
+                    <p>Anh hùng lực lượng vũ trang nhân dân</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2025 - Lịch sử Đội TNTP Hồ Chí Minh</p>
+            <p>Phát triển bởi đội viên</p>
+        </div>
+    </div>
+</body>
+</html>
