@@ -7,747 +7,325 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Open Sans', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: #333;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #FFC107, #FF8F00);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .header h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-
-        .back-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 30px;
-            background: white;
-            color: #FF8F00;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .back-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .quiz-info {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .stats {
-            display: flex;
-            gap: 30px;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat .label {
-            font-size: 0.9em;
-            color: #666;
-        }
-
-        .stat .value {
-            font-size: 1.8em;
-            font-weight: 700;
-            color: #FF8F00;
-        }
-
-        .progress-bar {
-            width: 200px;
-            height: 10px;
-            background: #e9ecef;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .progress {
-            height: 100%;
-            background: linear-gradient(90deg, #FFC107, #FF8F00);
-            transition: width 0.3s ease;
-        }
-
-        .question-card {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-
-        .question-number {
-            color: #FF8F00;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .question-text {
-            font-size: 1.3em;
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-
-        .options {
-            display: grid;
-            gap: 15px;
-        }
-
-        .option {
-            display: flex;
-            align-items: center;
-            padding: 15px 20px;
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .option:hover {
-            border-color: #FFC107;
-            transform: translateX(10px);
-        }
-
-        .option input[type="radio"] {
-            width: 20px;
-            height: 20px;
-            margin-right: 15px;
-            cursor: pointer;
-            accent-color: #FF8F00;
-        }
-
-        .option label {
-            font-size: 1.1em;
-            cursor: pointer;
-            flex: 1;
-        }
-
-        .option.correct {
-            background: #d4edda;
-            border-color: #28a745;
-        }
-
-        .option.incorrect {
-            background: #f8d7da;
-            border-color: #dc3545;
-        }
-
-        .controls {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 30px;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            font-size: 1.1em;
-            border: none;
-            border-radius: 50px;
-            background: linear-gradient(135deg, #FFC107, #FF8F00);
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .btn-submit {
-            background: linear-gradient(135deg, #28a745, #20c997);
-        }
-
-        .btn-restart {
-            background: linear-gradient(135deg, #6c757d, #495057);
-        }
-
-        .result-container {
-            background: white;
-            border-radius: 15px;
-            padding: 40px;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            display: none;
-        }
-
-        .result-container h2 {
-            color: #FF8F00;
-            font-size: 2em;
-            margin-bottom: 30px;
-        }
-
-        .result-details {
-            max-width: 400px;
-            margin: 0 auto;
-            text-align: left;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-        }
-
-        .result-details p {
-            font-size: 1.2em;
-            margin-bottom: 15px;
-            padding: 10px;
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        .result-details span {
-            float: right;
-            font-weight: 700;
-            color: #FF8F00;
-        }
-
-        .result-message {
-            font-size: 1.3em;
-            margin: 30px 0;
-            padding: 20px;
-            background: #e9ecef;
-            border-radius: 10px;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            color: #666;
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2em;
-            }
-
-            .quiz-info {
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .stats {
-                width: 100%;
-                justify-content: space-around;
-            }
-
-            .progress-bar {
-                width: 100%;
-            }
-
-            .controls {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #FFC107, #FF8F00); color: white; padding: 30px; text-align: center; border-radius: 15px; margin-bottom: 25px; }
+        .header h1 { font-family: 'Montserrat', sans-serif; font-size: 2em; }
+        .back-btn { display: inline-block; margin-top: 15px; padding: 8px 25px; background: white; color: #FF8F00; text-decoration: none; border-radius: 50px; font-weight: 600; transition: 0.3s; }
+        .back-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .tab-btn { padding: 10px 20px; background: white; border: none; border-radius: 10px; cursor: pointer; font-weight: 600; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .tab-btn.active { background: linear-gradient(135deg, #FFC107, #FF8F00); color: white; }
+        .tab-btn:hover { transform: translateY(-2px); }
+        .card { background: white; border-radius: 15px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); display: none; }
+        .card.active { display: block; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: #555; }
+        .form-group input, .form-group select { width: 100%; padding: 10px; border: 2px solid #e9ecef; border-radius: 8px; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: #FF8F00; }
+        .btn { padding: 10px 20px; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-primary { background: linear-gradient(135deg, #FFC107, #FF8F00); color: white; }
+        .btn-success { background: linear-gradient(135deg, #28a745, #20c997); color: white; }
+        .btn-secondary { background: #6c757d; color: white; }
+        .btn-danger { background: linear-gradient(135deg, #dc3545, #c82333); color: white; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .quiz-stats { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+        .stats-group { display: flex; gap: 25px; }
+        .stat { text-align: center; }
+        .stat .label { font-size: 0.8em; color: #666; }
+        .stat .value { font-size: 1.5em; font-weight: 700; color: #FF8F00; }
+        .progress-bar { flex: 1; height: 8px; background: #e9ecef; border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #FFC107, #FF8F00); transition: width 0.3s; }
+        .question-number { color: #FF8F00; font-weight: 600; margin-bottom: 15px; }
+        .question-text { font-size: 1.1em; margin-bottom: 20px; line-height: 1.5; }
+        .options { display: grid; gap: 10px; }
+        .option { display: flex; align-items: center; padding: 10px 15px; background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .option:hover:not(.disabled) { border-color: #FFC107; transform: translateX(5px); }
+        .option input { width: 18px; height: 18px; margin-right: 12px; cursor: pointer; accent-color: #FF8F00; }
+        .option label { flex: 1; cursor: pointer; }
+        .option.correct { background: #d4edda; border-color: #28a745; }
+        .option.incorrect { background: #f8d7da; border-color: #dc3545; }
+        .disabled { opacity: 0.7; cursor: not-allowed; }
+        .quiz-controls { display: flex; gap: 10px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+        .loading { text-align: center; padding: 40px; }
+        .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #FF8F00; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .result-item { display: flex; justify-content: space-between; padding: 12px; border-bottom: 1px solid #dee2e6; }
+        .result-stats { max-width: 400px; margin: 0 auto; }
+        .question-list { max-height: 400px; overflow-y: auto; }
+        .question-item { background: #f8f9fa; padding: 10px; margin-bottom: 8px; border-radius: 8px; border-left: 3px solid #FFC107; }
+        @media (max-width: 768px) { .quiz-stats { flex-direction: column; } .stats-group { width: 100%; justify-content: space-around; } .progress-bar { width: 100%; } .quiz-controls { flex-direction: column; } .btn { width: 100%; justify-content: center; } }
+        .footer { text-align: center; margin-top: 30px; padding: 15px; color: #666; font-size: 0.85em; }
+        .api-notice { background: #e8f5e9; border-left: 4px solid #4caf50; padding: 12px; border-radius: 8px; margin-bottom: 15px; font-size: 0.9em; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>TRẮC NGHIỆM TÌM HIỂU</h1>
-            <p>1000+ câu hỏi về lịch sử Đội TNTP Hồ Chí Minh</p>
-            <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Về trang chủ</a>
+<div class="container">
+    <div class="header">
+        <h1><i class="fas fa-graduation-cap"></i> TRẮC NGHIỆM TÌM HIỂU</h1>
+        <p>Đội TNTP Hồ Chí Minh - Lịch sử, nghi thức và phong trào Đội</p>
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Về trang chủ</a>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('quiz')"><i class="fas fa-question-circle"></i> Làm bài</button>
+        <button class="tab-btn" onclick="switchTab('ai')"><i class="fas fa-robot"></i> AI tạo câu hỏi</button>
+        <button class="tab-btn" onclick="switchTab('manage')"><i class="fas fa-database"></i> Quản lý</button>
+        <button class="tab-btn" id="result-tab-btn" style="display:none" onclick="switchTab('result')"><i class="fas fa-chart-bar"></i> Kết quả</button>
+    </div>
+
+    <!-- Tab AI -->
+    <div class="card" id="ai-tab">
+        <h3><i class="fas fa-robot"></i> AI tạo câu hỏi trắc nghiệm</h3>
+        <div class="api-notice">
+            <i class="fas fa-shield-alt"></i> <strong>Bảo mật:</strong> API key được lưu trữ an toàn trên server, không hiển thị trên trình duyệt
         </div>
-
-        <div class="quiz-info">
-            <div class="stats">
-                <div class="stat">
-                    <div class="label">Câu</div>
-                    <div class="value" id="current-question">1</div>
-                </div>
-                <div class="stat">
-                    <div class="label">Điểm</div>
-                    <div class="value" id="score">0</div>
-                </div>
-                <div class="stat">
-                    <div class="label">Đúng</div>
-                    <div class="value" id="correct-count">0</div>
-                </div>
-            </div>
-            <div class="progress-bar">
-                <div class="progress" id="progress" style="width: 0%"></div>
-            </div>
+        
+        <div class="form-group">
+            <label><i class="fas fa-layer-group"></i> Chủ đề</label>
+            <select id="topic">
+                <option value="lich-su">Lịch sử Đội TNTP</option>
+                <option value="nhan-vat">Nhân vật anh hùng</option>
+                <option value="phong-trao">Phong trào Đội</option>
+                <option value="nghi-thuc">Nghi thức Đội</option>
+                <option value="bac-ho">Bác Hồ với thiếu nhi</option>
+                <option value="tng-hop">Tổng hợp</option>
+            </select>
         </div>
-
-        <div id="quiz-container">
-            <div class="question-card" id="question-card">
-                <div class="question-number" id="question-number">Câu hỏi 1/1000</div>
-                <div class="question-text" id="question-text">Đang tải câu hỏi...</div>
-                <div class="options" id="options"></div>
-            </div>
-
-            <div class="controls">
-                <button class="btn" onclick="previousQuestion()" id="prev-btn" disabled>
-                    <i class="fas fa-arrow-left"></i> Câu trước
-                </button>
-                <button class="btn" onclick="nextQuestion()" id="next-btn">
-                    Câu sau <i class="fas fa-arrow-right"></i>
-                </button>
-                <button class="btn btn-submit" onclick="submitQuiz()" id="submit-btn" style="display: none;">
-                    <i class="fas fa-check"></i> Nộp bài
-                </button>
-                <button class="btn btn-restart" onclick="restartQuiz()" id="restart-btn" style="display: none;">
-                    <i class="fas fa-redo"></i> Làm lại
-                </button>
-            </div>
+        
+        <div class="form-group">
+            <label><i class="fas fa-chart-line"></i> Độ khó</label>
+            <select id="difficulty">
+                <option value="easy">Dễ</option>
+                <option value="medium">Trung bình</option>
+                <option value="hard">Khó</option>
+            </select>
         </div>
-
-        <div class="result-container" id="result-container">
-            <h2>KẾT QUẢ BÀI LÀM</h2>
-            <div class="result-details">
-                <p>Tổng số câu: <span id="total-questions">1000</span></p>
-                <p>Số câu đã làm: <span id="answered-count">0</span></p>
-                <p>Số câu đúng: <span id="final-correct">0</span></p>
-                <p>Điểm số: <span id="final-score">0</span></p>
-                <p>Tỷ lệ đúng: <span id="percentage">0%</span></p>
-            </div>
-            <div class="result-message" id="result-message"></div>
-            <button class="btn btn-restart" onclick="restartQuiz()">
-                <i class="fas fa-redo"></i> Làm lại bài mới
-            </button>
+        
+        <div class="form-group">
+            <label><i class="fas fa-list-ol"></i> Số lượng (1-20)</label>
+            <input type="number" id="num-questions" min="1" max="20" value="5">
         </div>
+        
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="btn btn-primary" onclick="generateQuestions()"><i class="fas fa-magic"></i> Tạo câu hỏi bằng AI</button>
+            <button class="btn btn-secondary" onclick="loadDefaultQuestions()"><i class="fas fa-download"></i> Tải câu hỏi mặc định</button>
+        </div>
+        
+        <div id="ai-status" style="margin-top: 15px;"></div>
+    </div>
 
-        <div class="footer">
-            <p>&copy; 2025 - Trắc nghiệm Đội TNTP Hồ Chí Minh</p>
+    <!-- Tab Quiz -->
+    <div class="card active" id="quiz-tab">
+        <div class="quiz-stats">
+            <div class="stats-group">
+                <div class="stat"><div class="label">Câu</div><div class="value" id="current-q">1</div></div>
+                <div class="stat"><div class="label">Điểm</div><div class="value" id="score-display">0</div></div>
+                <div class="stat"><div class="label">Đã làm</div><div class="value" id="answered-count">0</div></div>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+        </div>
+        <div id="quiz-content"></div>
+        <div class="quiz-controls">
+            <button class="btn btn-secondary" onclick="prevQuestion()" id="prev-btn" disabled><i class="fas fa-arrow-left"></i> Trước</button>
+            <button class="btn btn-primary" onclick="nextQuestion()" id="next-btn">Sau <i class="fas fa-arrow-right"></i></button>
+            <button class="btn btn-success" onclick="submitQuiz()" id="submit-btn" style="display:none"><i class="fas fa-check"></i> Nộp bài</button>
+            <button class="btn btn-danger" onclick="resetQuiz()"><i class="fas fa-redo"></i> Làm lại</button>
         </div>
     </div>
 
-    <script>
-        // 1000 câu hỏi trắc nghiệm về Đội TNTP Hồ Chí Minh
-        const questions = [
-            // 100 câu đầu - Lịch sử thành lập
-            {
-                id: 1,
-                question: "Đội TNTP Hồ Chí Minh được thành lập vào ngày tháng năm nào?",
-                options: [
-                    "A. 15/5/1941",
-                    "B. 19/5/1941",
-                    "C. 15/5/1945",
-                    "D. 19/5/1945"
-                ],
-                correct: 0
-            },
-            {
-                id: 2,
-                question: "Đội TNTP Hồ Chí Minh được thành lập tại đâu?",
-                options: [
-                    "A. Pác Bó, Cao Bằng",
-                    "B. Thôn Nà Mạ, xã Trường Hà, huyện Hà Quảng, tỉnh Cao Bằng",
-                    "C. Tân Trào, Tuyên Quang",
-                    "D. ATK Định Hóa, Thái Nguyên"
-                ],
-                correct: 1
-            },
-            {
-                id: 3,
-                question: "Ai là đội trưởng đầu tiên của Đội?",
-                options: [
-                    "A. Lý Tự Trọng",
-                    "B. Kim Đồng (Nông Văn Dền)",
-                    "C. Võ Thị Sáu",
-                    "D. Lê Văn Tám"
-                ],
-                correct: 1
-            },
-            {
-                id: 4,
-                question: "Năm đội viên đầu tiên của Đội gồm những ai?",
-                options: [
-                    "A. Kim Đồng, Cao Sơn, Thanh Minh, Thủy Tiên, Thanh Thủy",
-                    "B. Kim Đồng, Lý Tự Trọng, Võ Thị Sáu, Lê Văn Tám, Nguyễn Bá Ngọc",
-                    "C. Nông Văn Dền, Lý Tự Trọng, Võ Thị Sáu, Nguyễn Bá Ngọc, Trần Văn Ơn",
-                    "D. Kim Đồng, Cao Sơn, Lý Tự Trọng, Võ Thị Sáu, Lê Văn Tám"
-                ],
-                correct: 0
-            },
-            {
-                id: 5,
-                question: "Tên thật của anh Kim Đồng là gì?",
-                options: [
-                    "A. Nông Văn Thàn",
-                    "B. Lý Văn Tịnh",
-                    "C. Nông Văn Dền",
-                    "D. Lý Thị Nì"
-                ],
-                correct: 2
-            },
-            {
-                id: 6,
-                question: "Anh Kim Đồng hy sinh năm bao nhiêu tuổi?",
-                options: [
-                    "A. 13 tuổi",
-                    "B. 14 tuổi",
-                    "C. 15 tuổi",
-                    "D. 16 tuổi"
-                ],
-                correct: 1
-            },
-            {
-                id: 7,
-                question: "Anh Kim Đồng hy sinh vào ngày tháng năm nào?",
-                options: [
-                    "A. 15/02/1943",
-                    "B. 15/05/1943",
-                    "C. 15/02/1945",
-                    "D. 15/05/1945"
-                ],
-                correct: 0
-            },
-            {
-                id: 8,
-                question: "Năm 1951, Đội được đổi tên thành gì?",
-                options: [
-                    "A. Đội Thiếu niên Tiền phong",
-                    "B. Đội Thiếu nhi Tháng Tám",
-                    "C. Đội Nhi đồng Cứu quốc",
-                    "D. Đội TNTP Hồ Chí Minh"
-                ],
-                correct: 1
-            },
-            {
-                id: 9,
-                question: "Năm 1956, Đội được đổi tên thành gì?",
-                options: [
-                    "A. Đội Thiếu niên Tiền phong",
-                    "B. Đội Thiếu nhi Tháng Tám",
-                    "C. Đội Nhi đồng Cứu quốc",
-                    "D. Đội TNTP Hồ Chí Minh"
-                ],
-                correct: 0
-            },
-            {
-                id: 10,
-                question: "Đội được mang tên Bác Hồ (Đội TNTP Hồ Chí Minh) vào năm nào?",
-                options: [
-                    "A. 1969",
-                    "B. 1970",
-                    "C. 1975",
-                    "D. 1976"
-                ],
-                correct: 1
-            },
-            // Thêm 990 câu hỏi nữa ở đây (tôi sẽ viết tiếp trong phần thực tế)
-        ];
+    <!-- Tab Manage -->
+    <div class="card" id="manage-tab">
+        <h3><i class="fas fa-database"></i> Quản lý câu hỏi</h3>
+        <p>Tổng số: <strong id="total-count">0</strong> câu hỏi</p>
+        <div class="form-group"><input type="text" id="search-input" placeholder="🔍 Tìm kiếm..."></div>
+        <div class="question-list" id="question-list"></div>
+        <div style="display: flex; gap: 10px; margin-top: 15px;">
+            <button class="btn btn-primary" onclick="exportQuestions()"><i class="fas fa-download"></i> Xuất JSON</button>
+            <button class="btn btn-secondary" onclick="importQuestions()"><i class="fas fa-upload"></i> Nhập JSON</button>
+        </div>
+        <input type="file" id="import-file" style="display:none" accept=".json">
+    </div>
 
-        // Tạo 1000 câu hỏi tự động
-        for (let i = questions.length + 1; i <= 1000; i++) {
-            const category = Math.floor(Math.random() * 5); // 0-4
-            let question, options, correct;
-            
-            switch(category) {
-                case 0: // Lịch sử
-                    const years = [1941, 1943, 1945, 1951, 1956, 1970, 1976, 1986, 2001, 2011, 2021];
-                    const randomYear = years[Math.floor(Math.random() * years.length)];
-                    question = `Sự kiện quan trọng nào diễn ra vào năm ${randomYear}?`;
-                    options = [
-                        `A. Thành lập Đội (1941)`,
-                        `B. Kim Đồng hy sinh (1943)`,
-                        `C. Đội mang tên Bác Hồ (1970)`,
-                        `D. Kỷ niệm 80 năm thành lập (2021)`
-                    ];
-                    correct = years.indexOf(randomYear);
-                    break;
-                    
-                case 1: // Nhân vật
-                    const heroes = ["Kim Đồng", "Lê Văn Tám", "Võ Thị Sáu", "Nguyễn Bá Ngọc", "Lý Tự Trọng", "Nguyễn Văn Trỗi", "Trần Văn Ơn", "Cao Sơn", "Thanh Minh", "Thủy Tiên"];
-                    const randomHero = heroes[Math.floor(Math.random() * heroes.length)];
-                    question = `Anh hùng ${randomHero} được biết đến với?`;
-                    options = [
-                        `A. Đội trưởng đầu tiên`,
-                        `B. Tự thiêu kho xăng giặc`,
-                        `C. Nữ anh hùng liệt sĩ`,
-                        `D. Hy sinh cứu bạn nhỏ`
-                    ];
-                    correct = heroes.indexOf(randomHero) % 4;
-                    break;
-                    
-                case 2: // Phong trào
-                    const movements = ["Nghìn việc tốt", "Kế hoạch nhỏ", "Vòng tay bè bạn", "Trần Quốc Toản", "Làm nghìn việc tốt", "Vượt khó học tốt", "Hoa điểm tốt", "Đền ơn đáp nghĩa"];
-                    const randomMovement = movements[Math.floor(Math.random() * movements.length)];
-                    question = `Phong trào ${randomMovement} ra đời năm nào?`;
-                    options = [
-                        `A. 1976`,
-                        `B. 1986`,
-                        `C. 2001`,
-                        `D. 2011`
-                    ];
-                    correct = Math.floor(Math.random() * 4);
-                    break;
-                    
-                case 3: // Khẩu hiệu, điều lệ
-                    const slogans = [
-                        "Vì lợi ích mười năm trồng cây",
-                        "Tuổi nhỏ làm việc nhỏ",
-                        "Không có việc gì khó",
-                        "Yêu Tổ quốc, yêu đồng bào",
-                        "Học tập tốt, lao động tốt",
-                        "Đoàn kết tốt, kỷ luật tốt",
-                        "Giữ gìn vệ sinh thật tốt",
-                        "Khiêm tốn, thật thà, dũng cảm"
-                    ];
-                    question = "Câu nói nào sau đây là của Bác Hồ dạy thiếu nhi?";
-                    options = [
-                        `A. ${slogans[0]}`,
-                        `B. ${slogans[1]}`,
-                        `C. ${slogans[2]}`,
-                        `D. ${slogans[3]}`
-                    ];
-                    correct = 1; // "Tuổi nhỏ làm việc nhỏ"
-                    break;
-                    
-                default: // Nghi thức Đội
-                    const rituals = ["Hát Quốc ca", "Chào cờ", "Hô đáp khẩu hiệu", "Thắt khăn quàng", "Tháo khăn quàng", "Dậm chân tại chỗ", "Quay phải, quay trái", "Chạy đều"];
-                    question = `Trong nghi thức Đội, động tác ${rituals[Math.floor(Math.random() * rituals.length)]} được thực hiện khi nào?`;
-                    options = [
-                        "A. Khi sinh hoạt Đội",
-                                                "B. Khi tổ chức lễ chào cờ",
-                        "C. Kỷ niệm 80 năm thành lập (2021)",
-                        "D. Khi có nghi lễ Đội"
-                    ];
-                    correct = 1;
-                    break;
+    <!-- Tab Result -->
+    <div class="card" id="result-tab">
+        <h3 style="text-align:center">KẾT QUẢ BÀI LÀM</h3>
+        <div class="result-stats" id="result-stats"></div>
+        <div id="result-message" style="text-align:center; padding:20px"></div>
+        <div style="display: flex; gap: 10px; justify-content: center;">
+            <button class="btn btn-primary" onclick="reviewAnswers()"><i class="fas fa-eye"></i> Xem lại</button>
+            <button class="btn btn-success" onclick="resetQuiz()"><i class="fas fa-play"></i> Làm mới</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><i class="far fa-copyright"></i> 2025 - Hệ thống trắc nghiệm Đội TNTP Hồ Chí Minh</p>
+    </div>
+</div>
+
+<script>
+    let questions = [], userAnswers = [], currentIndex = 0, quizSubmitted = false;
+
+    const defaultQuestions = [
+        { id: 1, question: "Đội TNTP Hồ Chí Minh được thành lập ngày tháng năm nào?", options: ["A. 15/5/1941", "B. 19/5/1941", "C. 15/5/1945", "D. 19/5/1945"], correct: 0 },
+        { id: 2, question: "Ai là đội trưởng đầu tiên của Đội?", options: ["A. Lý Tự Trọng", "B. Kim Đồng", "C. Võ Thị Sáu", "D. Lê Văn Tám"], correct: 1 },
+        { id: 3, question: "Tên thật của anh Kim Đồng là gì?", options: ["A. Nông Văn Thàn", "B. Lý Văn Tịnh", "C. Nông Văn Dền", "D. Lý Thị Nì"], correct: 2 },
+        { id: 4, question: "Anh Kim Đồng hy sinh năm bao nhiêu tuổi?", options: ["A. 13", "B. 14", "C. 15", "D. 16"], correct: 1 },
+        { id: 5, question: "Đội được mang tên Bác Hồ vào năm nào?", options: ["A. 1969", "B. 1970", "C. 1975", "D. 1976"], correct: 1 },
+        { id: 6, question: "Phong trào 'Kế hoạch nhỏ' được phát động năm nào?", options: ["A. 1958", "B. 1960", "C. 1965", "D. 1970"], correct: 0 },
+        { id: 7, question: "Khăn quàng đỏ tượng trưng cho điều gì?", options: ["A. Máu các anh hùng", "B. Màu cờ Tổ quốc", "C. Lý tưởng CM", "D. Tình yêu thương"], correct: 0 },
+        { id: 8, question: "Bài hát chính thức của Đội là?", options: ["A. Cùng nhau ta đi lên", "B. Đội ca", "C. Như có Bác", "D. Em là mầm non"], correct: 1 },
+        { id: 9, question: "Năm đội viên đầu tiên gồm?", options: ["A. Kim Đồng, Cao Sơn, Thanh Minh, Thủy Tiên, Thanh Thủy", "B. Kim Đồng, Lý Tự Trọng, Võ Thị Sáu, Lê Văn Tám, Nguyễn Bá Ngọc", "C. Nông Văn Dền, Lý Tự Trọng, Võ Thị Sáu, Nguyễn Bá Ngọc, Trần Văn Ơn", "D. Kim Đồng, Cao Sơn, Lý Tự Trọng, Võ Thị Sáu, Lê Văn Tám"], correct: 0 },
+        { id: 10, question: "5 điều Bác Hồ dạy được phát động năm nào?", options: ["A. 1961", "B. 1965", "C. 1969", "D. 1975"], correct: 0 }
+    ];
+
+    function loadQuestions() {
+        const saved = localStorage.getItem('quiz_data_tnthcm');
+        if (saved) questions = JSON.parse(saved);
+        else questions = [...defaultQuestions];
+        saveQuestions();
+        initQuiz();
+    }
+
+    function saveQuestions() {
+        localStorage.setItem('quiz_data_tnthcm', JSON.stringify(questions));
+        document.getElementById('total-count').innerHTML = questions.length;
+        const btn = document.querySelector('.tab-btn:nth-child(3)');
+        if (btn) btn.innerHTML = `<i class="fas fa-database"></i> Quản lý (${questions.length})`;
+        renderQuestionList();
+    }
+
+    function initQuiz() {
+        userAnswers = new Array(questions.length).fill(null);
+        currentIndex = 0;
+        quizSubmitted = false;
+        renderCurrentQuestion();
+        updateStats();
+        document.getElementById('submit-btn').style.display = 'none';
+        document.getElementById('result-tab-btn').style.display = 'none';
+    }
+
+    function renderCurrentQuestion() {
+        if (questions.length === 0) {
+            document.getElementById('quiz-content').innerHTML = `<div style="text-align:center;padding:40px;"><i class="fas fa-database" style="font-size:3em;color:#FFC107"></i><p>Chưa có câu hỏi! Hãy tạo câu hỏi ở tab AI</p></div>`;
+            return;
+        }
+        const q = questions[currentIndex];
+        let html = `<div class="question-number">Câu ${currentIndex+1}/${questions.length}</div>
+                    <div class="question-text">${q.question}</div><div class="options">`;
+        q.options.forEach((opt, idx) => {
+            const checked = userAnswers[currentIndex] === idx;
+            let extra = '';
+            if (quizSubmitted) {
+                if (idx === q.correct) extra = 'correct';
+                else if (userAnswers[currentIndex] === idx) extra = 'incorrect';
             }
-            
-            questions.push({
-                id: i,
-                question: question,
-                options: options,
-                correct: correct
+            html += `<div class="option ${extra}" onclick="${!quizSubmitted ? `selectAnswer(${idx})` : ''}">
+                        <input type="radio" ${checked ? 'checked' : ''} ${quizSubmitted ? 'disabled' : ''}>
+                        <label>${opt}</label>
+                    </div>`;
+        });
+        html += `</div>`;
+        document.getElementById('quiz-content').innerHTML = html;
+        document.getElementById('prev-btn').disabled = currentIndex === 0 || quizSubmitted;
+        if (currentIndex === questions.length-1 && !quizSubmitted) {
+            document.getElementById('submit-btn').style.display = 'inline-flex';
+            document.getElementById('next-btn').style.display = 'none';
+        } else {
+            document.getElementById('submit-btn').style.display = 'none';
+            document.getElementById('next-btn').style.display = 'inline-flex';
+        }
+    }
+
+    function selectAnswer(idx) { if (!quizSubmitted && questions.length) { userAnswers[currentIndex] = idx; renderCurrentQuestion(); updateStats(); } }
+    function nextQuestion() { if (currentIndex < questions.length-1) { currentIndex++; renderCurrentQuestion(); } }
+    function prevQuestion() { if (currentIndex > 0) { currentIndex--; renderCurrentQuestion(); } }
+    
+    function updateStats() {
+        if (!questions.length) return;
+        const answered = userAnswers.filter(a => a !== null).length;
+        const correct = userAnswers.reduce((c, a, i) => c + (a === questions[i]?.correct ? 1 : 0), 0);
+        document.getElementById('current-q').innerHTML = currentIndex+1;
+        document.getElementById('score-display').innerHTML = correct*10;
+        document.getElementById('answered-count').innerHTML = answered;
+        document.getElementById('progress-fill').style.width = `${(answered/questions.length)*100}%`;
+    }
+
+    function submitQuiz() { if (!questions.length) return; quizSubmitted = true; renderCurrentQuestion(); document.getElementById('submit-btn').style.display = 'none'; document.getElementById('next-btn').style.display = 'inline-flex'; document.getElementById('result-tab-btn').style.display = 'inline-flex'; switchTab('result'); showResults(); }
+    function resetQuiz() { initQuiz(); switchTab('quiz'); }
+    
+    function showResults() {
+        const correct = userAnswers.reduce((c, a, i) => c + (a === questions[i]?.correct ? 1 : 0), 0);
+        const percent = questions.length ? ((correct/questions.length)*100).toFixed(1) : 0;
+        let msg = percent >= 80 ? '🎉 Xuất sắc!' : percent >= 60 ? '👍 Tốt!' : percent >= 40 ? '📚 Khá!' : '📖 Cố gắng hơn!';
+        document.getElementById('result-stats').innerHTML = `<div class="result-item"><span>Tổng số:</span><span style="color:#FF8F00;font-weight:700">${questions.length}</span></div>
+            <div class="result-item"><span>Đã làm:</span><span style="color:#FF8F00;font-weight:700">${userAnswers.filter(a=>a!==null).length}</span></div>
+            <div class="result-item"><span>Đúng:</span><span style="color:#28a745;font-weight:700">${correct}</span></div>
+            <div class="result-item"><span>Điểm:</span><span style="color:#FF8F00;font-weight:700">${correct*10}</span></div>
+            <div class="result-item"><span>Tỷ lệ:</span><span style="color:#FF8F00;font-weight:700">${percent}%</span></div>`;
+        document.getElementById('result-message').innerHTML = msg;
+    }
+    
+    function reviewAnswers() { switchTab('quiz'); }
+
+    async function generateQuestions() {
+        const topic = document.getElementById('topic').value;
+        const difficulty = document.getElementById('difficulty').value;
+        const num = parseInt(document.getElementById('num-questions').value);
+        const statusDiv = document.getElementById('ai-status');
+        statusDiv.innerHTML = '<div class="loading"><div class="spinner"></div><p>AI đang tạo câu hỏi...</p></div>';
+        
+        try {
+            const response = await fetch('/api/gemini', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ topic, difficulty, numQuestions: num })
             });
-        }
-
-        // State
-        let currentQuestionIndex = 0;
-        let userAnswers = new Array(questions.length).fill(null);
-        let score = 0;
-        let quizSubmitted = false;
-
-        // DOM elements
-        const questionNumber = document.getElementById('question-number');
-        const questionText = document.getElementById('question-text');
-        const optionsDiv = document.getElementById('options');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const submitBtn = document.getElementById('submit-btn');
-        const restartBtn = document.getElementById('restart-btn');
-        const quizContainer = document.getElementById('quiz-container');
-        const resultContainer = document.getElementById('result-container');
-        const currentQuestionSpan = document.getElementById('current-question');
-        const scoreSpan = document.getElementById('score');
-        const correctCountSpan = document.getElementById('correct-count');
-        const progressDiv = document.getElementById('progress');
-
-        // Initialize quiz
-        function initQuiz() {
-            loadQuestion();
-            updateStats();
-        }
-
-        // Load current question
-        function loadQuestion() {
-            const question = questions[currentQuestionIndex];
-            questionNumber.textContent = `Câu hỏi ${currentQuestionIndex + 1}/${questions.length}`;
-            questionText.textContent = question.question;
-
-            let optionsHtml = '';
-            question.options.forEach((option, index) => {
-                const isChecked = userAnswers[currentQuestionIndex] === index;
-                const isCorrect = quizSubmitted && index === question.correct;
-                const isIncorrect = quizSubmitted && userAnswers[currentQuestionIndex] === index && index !== question.correct;
-                
-                let optionClass = 'option';
-                if (quizSubmitted) {
-                    if (isCorrect) optionClass += ' correct';
-                    if (isIncorrect) optionClass += ' incorrect';
-                }
-
-                optionsHtml += `
-                    <div class="${optionClass}" onclick="${!quizSubmitted ? `selectOption(${index})` : ''}">
-                        <input type="radio" name="option" value="${index}" ${isChecked ? 'checked' : ''} ${quizSubmitted ? 'disabled' : ''}>
-                        <label>${option}</label>
-                    </div>
-                `;
-            });
-            optionsDiv.innerHTML = optionsHtml;
-
-            // Update navigation buttons
-            prevBtn.disabled = currentQuestionIndex === 0 || quizSubmitted;
-            nextBtn.disabled = currentQuestionIndex === questions.length - 1 || quizSubmitted;
-            
-            if (currentQuestionIndex === questions.length - 1 && !quizSubmitted) {
-                submitBtn.style.display = 'inline-flex';
-                nextBtn.style.display = 'none';
+            const data = await response.json();
+            if (data.success && data.questions) {
+                const startId = questions.length + 1;
+                data.questions.forEach((q, i) => { q.id = startId + i; });
+                questions.push(...data.questions);
+                saveQuestions();
+                statusDiv.innerHTML = `<div style="background:#d4edda; padding:10px; border-radius:8px;">✅ Đã thêm ${data.questions.length} câu hỏi mới!</div>`;
+                initQuiz();
+                setTimeout(() => statusDiv.innerHTML = '', 3000);
             } else {
-                submitBtn.style.display = 'none';
-                nextBtn.style.display = 'inline-flex';
+                statusDiv.innerHTML = `<div style="background:#f8d7da; padding:10px; border-radius:8px;">❌ Lỗi: ${data.error}</div>`;
             }
-
-            currentQuestionSpan.textContent = currentQuestionIndex + 1;
+        } catch (err) {
+            statusDiv.innerHTML = `<div style="background:#f8d7da; padding:10px; border-radius:8px;">❌ Lỗi kết nối: ${err.message}</div>`;
         }
+    }
 
-        // Select option
-        function selectOption(index) {
-            if (quizSubmitted) return;
-            
-            userAnswers[currentQuestionIndex] = index;
-            loadQuestion();
-            updateStats();
-        }
-
-        // Next question
-        function nextQuestion() {
-            if (currentQuestionIndex < questions.length - 1) {
-                currentQuestionIndex++;
-                loadQuestion();
-            }
-        }
-
-        // Previous question
-        function previousQuestion() {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                loadQuestion();
-            }
-        }
-
-        // Update statistics
-        function updateStats() {
-            const answered = userAnswers.filter(a => a !== null).length;
-            const correct = userAnswers.reduce((count, answer, index) => {
-                return count + (answer === questions[index].correct ? 1 : 0);
-            }, 0);
-            
-            score = correct * 10; // Mỗi câu 10 điểm
-            const progress = (answered / questions.length) * 100;
-
-            document.getElementById('current-question').textContent = currentQuestionIndex + 1;
-            document.getElementById('score').textContent = score;
-            document.getElementById('correct-count').textContent = correct;
-            progressDiv.style.width = `${progress}%`;
-        }
-
-        // Submit quiz
-        function submitQuiz() {
-            quizSubmitted = true;
-            
-            // Calculate final results
-            const answered = userAnswers.filter(a => a !== null).length;
-            const correct = userAnswers.reduce((count, answer, index) => {
-                return count + (answer === questions[index].correct ? 1 : 0);
-            }, 0);
-            
-            const percentage = ((correct / questions.length) * 100).toFixed(2);
-            
-            // Update result container
-            document.getElementById('total-questions').textContent = questions.length;
-            document.getElementById('answered-count').textContent = answered;
-            document.getElementById('final-correct').textContent = correct;
-            document.getElementById('final-score').textContent = correct * 10;
-            document.getElementById('percentage').textContent = percentage + '%';
-            
-            // Result message
-            let message = '';
-            if (percentage >= 90) {
-                message = '🎉 Xuất sắc! Bạn hiểu rất rõ về lịch sử Đội TNTP Hồ Chí Minh!';
-            } else if (percentage >= 70) {
-                message = '👍 Giỏi! Kiến thức của bạn về Đội rất tốt!';
-            } else if (percentage >= 50) {
-                message = '📚 Khá! Cần tìm hiểu thêm một số nội dung về Đội.';
-            } else {
-                message = '📖 Cố gắng hơn! Hãy học thêm về lịch sử Đội TNTP Hồ Chí Minh.';
-            }
-            document.getElementById('result-message').textContent = message;
-            
-            // Hide quiz, show result
-            quizContainer.style.display = 'none';
-            resultContainer.style.display = 'block';
-            
-            // Load question with correct answers highlighted
-            loadQuestion();
-        }
-
-        // Restart quiz
-        function restartQuiz() {
-            currentQuestionIndex = 0;
-            userAnswers = new Array(questions.length).fill(null);
-            quizSubmitted = false;
-            score = 0;
-            
-            quizContainer.style.display = 'block';
-            resultContainer.style.display = 'none';
-            
-            submitBtn.style.display = 'none';
-            nextBtn.style.display = 'inline-flex';
-            prevBtn.disabled = true;
-            
-            loadQuestion();
-            updateStats();
-        }
-
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', initQuiz);
-
-        // Make functions global
-        window.selectOption = selectOption;
-        window.nextQuestion = nextQuestion;
-        window.previousQuestion = previousQuestion;
-        window.submitQuiz = submitQuiz;
-        window.restartQuiz = restartQuiz;
-    </script>
+    function loadDefaultQuestions() { questions = [...defaultQuestions]; saveQuestions(); initQuiz(); showStatus('Đã tải 10 câu hỏi mặc định!', 'success'); }
+    function showStatus(msg, type) { const d = document.getElementById('ai-status'); d.innerHTML = `<div style="background:${type==='success'?'#d4edda':'#f8d7da'};padding:10px;border-radius:8px;">${msg}</div>`; setTimeout(() => d.innerHTML='', 3000); }
+    
+    function renderQuestionList() {
+        const search = document.getElementById('search-input')?.value.toLowerCase() || '';
+        const filtered = questions.filter(q => q.question.toLowerCase().includes(search));
+        const container = document.getElementById('question-list');
+        if (!filtered.length) { container.innerHTML = '<p style="text-align:center">Không có câu hỏi</p>'; return; }
+        container.innerHTML = filtered.map(q => `<div class="question-item"><strong>${q.id}.</strong> ${q.question.substring(0,80)}${q.question.length>80?'...':''}<br><small>Đáp án: ${q.options[q.correct]}</small><button onclick="deleteQuestion(${q.id})" style="float:right; background:#dc3545; color:white; border:none; padding:2px 10px; border-radius:5px; cursor:pointer">Xóa</button></div>`).join('');
+    }
+    
+    function deleteQuestion(id) { if (confirm('Xóa câu hỏi này?')) { questions = questions.filter(q => q.id !== id); saveQuestions(); initQuiz(); } }
+    function exportQuestions() { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(questions,null,2)], {type:'application/json'})); a.download = `quiz_${new Date().toISOString().split('T')[0]}.json`; a.click(); URL.revokeObjectURL(a.href); }
+    function importQuestions() { document.getElementById('import-file').click(); document.getElementById('import-file').onchange = e => { const file = e.target.files[0]; if(file){ const reader = new FileReader(); reader.onload = ev => { try { const imported = JSON.parse(ev.target.result); if(Array.isArray(imported)) { questions = imported; saveQuestions(); initQuiz(); alert('Nhập thành công!'); } else alert('File không hợp lệ'); } catch(err){ alert('Lỗi đọc file'); } }; reader.readAsText(file); } }; }
+    
+    function updateManageTab() { document.getElementById('total-count').innerHTML = questions.length; renderQuestionList(); }
+    function switchTab(tab) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+        if(tab==='quiz') { document.querySelector('.tab-btn:nth-child(1)').classList.add('active'); document.getElementById('quiz-tab').classList.add('active'); }
+        if(tab==='ai') { document.querySelector('.tab-btn:nth-child(2)').classList.add('active'); document.getElementById('ai-tab').classList.add('active'); }
+        if(tab==='manage') { document.querySelector('.tab-btn:nth-child(3)').classList.add('active'); document.getElementById('manage-tab').classList.add('active'); updateManageTab(); }
+        if(tab==='result') { document.getElementById('result-tab-btn').classList.add('active'); document.getElementById('result-tab').classList.add('active'); showResults(); }
+    }
+    
+    document.getElementById('search-input')?.addEventListener('input', () => renderQuestionList());
+    loadQuestions();
+</script>
 </body>
 </html>
