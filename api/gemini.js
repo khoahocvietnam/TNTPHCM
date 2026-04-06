@@ -48,7 +48,8 @@ Trả về CHỈ DUY NHẤT một mảng JSON, không có text giải thích hay
 Lưu ý: "correct" là chỉ số 0, 1, 2, 3 tương ứng với vị trí đáp án đúng trong mảng options (0 là A, 1 là B, 2 là C, 3 là D).`;
 
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+        // Dùng model gemini-2.5-flash-lite (phiên bản mới, nhanh và nhẹ)
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${API_KEY}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
